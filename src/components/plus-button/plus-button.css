@@ -1,0 +1,60 @@
+.closed .vertical {
+  transition: all 0.5s ease-in-out;
+  transform: rotate(-90deg);
+}
+
+.closed .horizontal {
+  transition: all 0.5s ease-in-out;
+  transform: rotate(-90deg);
+  opacity: 1;
+}
+
+.opened {
+  opacity: 1;
+}
+
+.opened .vertical {
+  transition: all 0.5s ease-in-out;
+  transform: rotate(90deg);
+}
+.opened .horizontal {
+  transition: all 0.5s ease-in-out;
+  transform: rotate(90deg);
+  opacity: 0;
+}
+
+.plus-button {
+  height: 70px;
+  width: 60px;
+  font-size: 18px;
+  opacity: .7;
+  cursor: pointer;
+  margin: 20px 25% 0;
+}
+
+.plus-button .button {
+  position: relative;
+  width: 30px;
+  height: 35px;
+  border: solid 4px #DFDAD7;
+}
+.plus-button .button .horizontal {
+  position: absolute;
+  background-color: red;
+  width: 30px;
+  height: 5px;
+  left: 50%;
+  margin-left: -15px;
+  top: 50%;
+  margin-top: -2.5px;
+}
+.plus-button .button .vertical {
+  position: absolute;
+  background-color: red;
+  width: 5px;
+  height: 30px;
+  left: 50%;
+  margin-left: -2.5px;
+  top: 50%;
+  margin-top: -15px;
+}

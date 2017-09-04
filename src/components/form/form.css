@@ -1,0 +1,30 @@
+.form {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  margin: 15px;
+}
+
+.form__group {
+  display: flex;
+  width: 50%;
+}
+
+.form__button-group {
+  display: flex;
+  width: 50%;
+  justify-content: flex-end;
+}
+
+.form__button-group button {
+  margin: 5px;
+  height: 40px;
+}
+
+.form__group input {
+  width: 33.333%;
+  height: 35px;
+  margin: 5px;
+  border: solid #DFDAD7;
+  padding: 5px;
+}

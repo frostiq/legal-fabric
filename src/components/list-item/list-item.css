@@ -1,0 +1,22 @@
+.list-item {
+  display: flex;
+  height: 60px;
+  border: solid #DFDAD7;
+  width: 50%;
+  margin: 8px 0;
+  align-items: center;
+  font-size: 18px;
+  justify-content: space-between;
+}
+
+.list-item__name {
+  margin-left: 12px;
+}
+
+.list-item__buttons {
+  display: flex;
+}
+
+.list-item__buttons button{
+  margin: 0 8px 0 3px;
+}

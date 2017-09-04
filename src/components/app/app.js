@@ -2,7 +2,11 @@ import React, { Component } from 'react'
 import SimpleStorageContract from 'build/contracts/SimpleStorage.json'
 import getWeb3 from 'src/utils/getWeb3'
 
-import './App.css'
+import List from './../list'
+import PlusButton from './../plus-button'
+import Form from './../form';
+
+import './app.css'
 
 class App extends Component {
   constructor(props) {
@@ -68,20 +72,13 @@ class App extends Component {
     return (
       <div className="App">
         <nav className="navbar pure-menu pure-menu-horizontal">
-            <a href="#" className="pure-menu-heading pure-menu-link">Truffle Box</a>
+            <a href="#" className="pure-menu-heading pure-menu-link">StartUp</a>
         </nav>
 
         <main className="container">
-          <div className="pure-g">
-            <div className="pure-u-1-1">
-              <h1>Good to Go!</h1>
-              <p>Your Truffle Box is installed and ready.</p>
-              <h2>Smart Contract Example</h2>
-              <p>If your contracts compiled and migrated successfully, below will show a stored value of 5 (by default).</p>
-              <p>Try changing the value stored on <strong>line 59</strong> of App.js.</p>
-              <p>The stored value is: {this.state.storageValue}</p>
-            </div>
-          </div>
+          <PlusButton />
+          <Form />
+          <List items={[{_id: 1, name: 'Contract_A'}, {_id: 2, name: 'Contract_B'}]}/>
         </main>
       </div>
     );
