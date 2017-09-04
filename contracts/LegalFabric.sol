@@ -4,10 +4,15 @@ import './Builder.sol';
 
 
 contract LegalFabric is Builder {
-        /**
-     * @dev Run script creation contract
-     * @return address new contract
-     */
+
+    function LegalFabric(uint _buildingCostWei, address _beneficiary)
+        Builder(_buildingCostWei, _beneficiary)
+    { }
+
+    /**
+    * @dev Run script creation contract
+    * @return address new contract
+    */
     function create(
         uint _deadline,
         uint _reward,

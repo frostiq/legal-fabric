@@ -1,5 +1,5 @@
-var SimpleStorage = artifacts.require("./SimpleStorage.sol");
+var LegalFabric = artifacts.require("./LegalFabric.sol");
 
-module.exports = function(deployer) {
-  deployer.deploy(SimpleStorage);
+module.exports = async function(deployer) {
+  await deployer.deploy(LegalFabric, 0, '0x0');
 };
