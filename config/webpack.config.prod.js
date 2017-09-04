@@ -37,6 +37,7 @@ var publicPath = ensureSlash(homepagePathname, true);
 var publicUrl = ensureSlash(homepagePathname, false);
 // Get environment variables to inject into our app.
 var env = getClientEnvironment(publicUrl);
+var path = require('path');
 
 // Assert this just to be safe.
 // Development builds of React are slow and not intended for production.
@@ -55,7 +56,7 @@ module.exports = {
   devtool: 'source-map',
   // In production, we only want to load the polyfills and the app code.
   entry: [
-    require.resolve('./polyfills'),
+    'babel-polyfill',
     paths.appIndexJs
   ],
   output: {
@@ -80,6 +81,7 @@ module.exports = {
     // We also include JSX as a common component filename extension to support
     // some tools, although we do not recommend using it, see:
     // https://github.com/facebookincubator/create-react-app/issues/290
+    root: path.resolve(__dirname, '../'),
     extensions: ['.js', '.json', '.jsx', ''],
     alias: {
       // Support React Native Web
@@ -131,7 +133,8 @@ module.exports = {
       {
         test: /\.(js|jsx)$/,
         include: paths.appSrc,
-        loader: 'babel',
+        loader: 'babel-loader',
+        options: { presets: ['react', 'es2015', 'stage-0'] },
       },
       // The notation here is somewhat confusing.
       // "postcss" loader applies autoprefixer to our CSS.

@@ -2,3 +2,4 @@ bin/
 build/
 node_modules/
 installed_contracts/
+.idea/
