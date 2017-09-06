@@ -1,13 +1,20 @@
 pragma solidity ^0.4.15;
 
 import './Builder.sol';
+import './LegalInstantiator.sol';
+import './LegalAgreement.sol';
 
 
 contract LegalFabric is Builder {
 
-    function LegalFabric(uint _buildingCostWei, address _beneficiary)
+    LegalInstantiator public instantiator;
+
+    function LegalFabric(uint _buildingCostWei, address _beneficiary, LegalInstantiator _instantiator)
         Builder(_buildingCostWei, _beneficiary)
-    { }
+    {
+        require(address(_instantiator) != 0x0);
+        instantiator = _instantiator;
+    }
 
     /**
     * @dev Run script creation contract
@@ -17,11 +24,10 @@ contract LegalFabric is Builder {
         uint _deadline,
         uint _reward,
         uint _deposit,
-        address[] _oracles,
+        address[3] _oracles,
         address _client
         ) payable returns (address) 
     {
-        require(_deadline > now);
         require(msg.value == buildingCostWei);
         
         if (_client == 0x0)
@@ -29,12 +35,29 @@ contract LegalFabric is Builder {
         
         beneficiary.transfer(msg.value);
 
-        var inst = new Ownable(); //TODO: replace with legal contract creation
+        // address inst = instantiator.create(
+        //     _deadline, 
+        //     _reward, 
+        //     _deposit, 
+        //     _oracles
+        // );
+
+        address inst = new LegalAgreement(
+            _deadline, 
+            _reward, 
+            _deposit, 
+            _oracles
+        );
 
         getContractsOf[_client].push(inst);
         Builded(_client, inst);
-        inst.transferOwnership(_client);
+        Ownable(inst).transferOwnership(_client);
 
         return inst;
+    }
+    
+    function setInstantiator(LegalInstantiator _instantiator) onlyOwner {
+        require(address(_instantiator) != 0x0);
+        instantiator = _instantiator;
     }
 }
