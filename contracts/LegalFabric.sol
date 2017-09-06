@@ -2,7 +2,6 @@ pragma solidity ^0.4.15;
 
 import './Builder.sol';
 import './LegalInstantiator.sol';
-import './LegalAgreement.sol';
 
 
 contract LegalFabric is Builder {
@@ -35,14 +34,7 @@ contract LegalFabric is Builder {
         
         beneficiary.transfer(msg.value);
 
-        // address inst = instantiator.create(
-        //     _deadline, 
-        //     _reward, 
-        //     _deposit, 
-        //     _oracles
-        // );
-
-        address inst = new LegalAgreement(
+        address inst = instantiator.create(
             _deadline, 
             _reward, 
             _deposit, 
@@ -51,7 +43,6 @@ contract LegalFabric is Builder {
 
         getContractsOf[_client].push(inst);
         Builded(_client, inst);
-        Ownable(inst).transferOwnership(_client);
 
         return inst;
     }

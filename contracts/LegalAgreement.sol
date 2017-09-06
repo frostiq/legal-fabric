@@ -1,9 +1,7 @@
 pragma solidity ^0.4.15;
 
-import 'zeppelin-solidity/contracts/lifecycle/Destructible.sol';
 
-
-contract LegalAgreement is Destructible {
+contract LegalAgreement {
 
     uint public deadline;
     uint public reward;
