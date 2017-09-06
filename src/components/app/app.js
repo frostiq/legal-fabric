@@ -63,9 +63,16 @@ class App extends Component {
       });
     })
     
-    const newContract = await legalFabric.create(now + 100, 0, 0, ['0x0', '0x0', '0x0'], '0x0', {from: account});
+    const newContract = await legalFabric.create(
+      now + 100, 
+      0, 
+      0, 
+      ['0x0', '0x0', '0x0'], 
+      '0x0', 
+      {from: account, gas: 4000000}
+    );
 
-    console.log(newContract);
+    console.log('Contract address: ' + newContract.logs[0].args.instance);
   }
 
   render() {

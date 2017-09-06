@@ -28,27 +28,32 @@ contract LegalFabric is Builder {
         address _client
         ) payable returns (address) 
     {
-        // require(msg.value == buildingCostWei);
+        require(msg.value == buildingCostWei);
         
-        // if (_client == 0x0)
-        //     _client = msg.sender;
+        if (_client == 0x0)
+            _client = msg.sender;
         
-        // beneficiary.transfer(msg.value);
+        beneficiary.transfer(msg.value);
 
-        // // address inst = instantiator.create(
-        // //     _deadline, 
-        // //     _reward, 
-        // //     _deposit, 
-        // //     _oracles
-        // // );
+        // address inst = instantiator.create(
+        //     _deadline, 
+        //     _reward, 
+        //     _deposit, 
+        //     _oracles
+        // );
 
-        // address inst = new Ownable();
+        address inst = new LegalAgreement(
+            _deadline, 
+            _reward, 
+            _deposit, 
+            _oracles
+        );
 
-        // getContractsOf[_client].push(inst);
-        // Builded(_client, inst);
-        // Ownable(inst).transferOwnership(_client);
+        getContractsOf[_client].push(inst);
+        Builded(_client, inst);
+        Ownable(inst).transferOwnership(_client);
 
-        return 0x0; //inst;
+        return inst;
     }
     
     function setInstantiator(LegalInstantiator _instantiator) onlyOwner {
