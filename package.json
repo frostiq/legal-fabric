@@ -53,9 +53,14 @@
   },
   "dependencies": {
     "classnames": "^2.2.5",
+    "combine-section-reducers": "^1.0.4",
     "dotenv": "^2.0.0",
-    "react": "^15.4.2",
+    "react": "^15.6.1",
+    "react-datepicker": "^0.54.0",
     "react-dom": "^15.4.2",
+    "react-redux": "^5.0.6",
+    "redux": "^3.7.2",
+    "redux-thunk": "^2.2.0",
     "zeppelin-solidity": "^1.2.0"
   },
   "scripts": {

@@ -3,6 +3,14 @@
   flex-direction: column;
   align-items: center;
   margin: 15px;
+  height: 0;
+  opacity: 0;
+}
+
+.form--visible {
+  transition: all 2s;
+  height: auto;
+  opacity: 1;
 }
 
 .form__group {
@@ -21,10 +29,22 @@
   height: 40px;
 }
 
-.form__group input {
+.form__group-input {
   width: 33.333%;
   height: 35px;
   margin: 5px;
   border: solid #DFDAD7;
   padding: 5px;
+}
+
+.width33M25 {
+  width: calc(33.333% - 25px);
+}
+
+.form__group>div {
+  width: 33.333%;
+}
+
+.react-datepicker-wrapper, .react-datepicker__input-container, .react-datepicker__input-container>input {
+  width: calc(100% - 8px);
 }

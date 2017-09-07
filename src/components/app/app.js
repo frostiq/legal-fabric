@@ -1,5 +1,7 @@
 import React, { Component } from 'react'
 import LegalFabric from 'build/contracts/LegalFabric.json'
+import { connect } from 'react-redux';
+import {toggleForm} from '../../redux/app/app.actions';
 import getWeb3 from 'src/utils/getWeb3'
 
 import List from './../list'
@@ -76,6 +78,8 @@ class App extends Component {
   }
 
   render() {
+    const {showForm, toggleForm} = this.props;
+
     return (
       <div className="App">
         <nav className="navbar pure-menu pure-menu-horizontal">
@@ -83,8 +87,8 @@ class App extends Component {
         </nav>
 
         <main className="container">
-          <PlusButton />
-          <Form />
+          <PlusButton showForm={showForm} toggleForm={toggleForm} />
+          <Form show={showForm} />
           <List items={[{_id: 1, name: 'Contract_A'}, {_id: 2, name: 'Contract_B'}]}/>
         </main>
       </div>
@@ -92,4 +96,9 @@ class App extends Component {
   }
 }
 
-export default App
+export default connect(
+  state => ({
+    showForm: state.app.showForm,
+  }),
+  { toggleForm },
+)(App);
