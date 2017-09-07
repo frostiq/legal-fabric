@@ -66,7 +66,7 @@ class App extends Component {
     })
     
     const newContract = await legalFabric.create(
-      now + 100, 
+      now + 100000, 
       0, 
       0, 
       ['0x0', '0x0', '0x0'], 
