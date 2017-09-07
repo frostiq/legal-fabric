@@ -5,8 +5,9 @@ import Button from './../button';
 
 class Form extends Component {
   render() {
+    const {show} = this.props
     return (
-      <form className="form">
+      <form className={`form ${show ? 'form--visible' : ''}`}>
         <div className="form__group">
           <input type="text" placeholder="Oracle"/>
           <input type="text" placeholder="Oracle"/>
