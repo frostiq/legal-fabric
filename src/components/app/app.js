@@ -1,5 +1,6 @@
 import React, { Component } from 'react'
 import LegalFabric from 'build/contracts/LegalFabric.json'
+import LegalAgreement from 'build/contracts/LegalAgreement.json'
 import { connect } from 'react-redux';
 import {toggleForm} from '../../redux/app/app.actions';
 import getWeb3 from 'src/utils/getWeb3'
@@ -74,7 +75,20 @@ class App extends Component {
       {from: account, gas: 4000000}
     );
 
-    console.log('Contract address: ' + newContract.logs[0].args.instance);
+    const agreementAddress = newContract.logs[0].args.instance;
+    console.log('Contract address: ' + agreementAddress);
+
+
+    const legalAgreementContract = contract(LegalAgreement)
+    legalAgreementContract.setProvider(this.state.web3.currentProvider)
+    const agreement = await legalAgreementContract.at(agreementAddress)
+    const state = await agreement.getState.call()
+    console.log('Agreement state: ' + state)
+
+    await agreement.setImplementer({from: account})
+
+    const impl = await agreement.implementer.call()
+    console.log('Implementer: ' + impl)
   }
 
   render() {
