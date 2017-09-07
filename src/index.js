@@ -8,6 +8,7 @@ import store from './redux/store'
 import './css/oswald.css'
 import './css/open-sans.css'
 import './css/pure-min.css'
+import 'react-datepicker/dist/react-datepicker.css'
 
 ReactDOM.render(
   <Provider store={store}>
