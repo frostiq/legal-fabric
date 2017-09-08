@@ -2,4 +2,5 @@ bin/
 build/
 node_modules/
 installed_contracts/
+build_webpack/
 .idea/

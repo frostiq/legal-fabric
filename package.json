@@ -52,20 +52,33 @@
     "whatwg-fetch": "1.0.0"
   },
   "dependencies": {
+    "@paralect/common-logger": "^0.1.10",
+    "app-module-path": "^2.2.0",
     "classnames": "^2.2.5",
     "combine-section-reducers": "^1.0.4",
     "dotenv": "^2.0.0",
+    "koa": "^2.3.0",
+    "koa-bodyparser": "^4.2.0",
+    "koa-logger": "^3.0.1",
+    "koa-mount": "^3.0.0",
+    "koa-router": "^7.2.1",
+    "koa-static": "^4.0.1",
+    "koa-views": "^6.0.2",
     "react": "^15.6.1",
     "react-datepicker": "^0.54.0",
     "react-dom": "^15.4.2",
     "react-redux": "^5.0.6",
     "redux": "^3.7.2",
     "redux-thunk": "^2.2.0",
+    "webpack-dev-middleware": "^1.12.0",
+    "webpack-hot-middleware": "^2.19.1",
     "zeppelin-solidity": "^1.2.0"
   },
   "scripts": {
     "start": "node scripts/start.js",
     "build": "node scripts/build.js",
+    "server-production": "NODE_ENV=production node server/app.js",
+    "server-development": "NODE_ENV=development nodemon --watch src --watch config/webpack.dev.config.js server/app.js",
     "test": "node scripts/test.js --env=jsdom"
   },
   "jest": {
