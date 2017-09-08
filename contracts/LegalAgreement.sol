@@ -20,6 +20,8 @@ contract LegalAgreement {
 
     event Approved(address oracle, string justification);
     event Fulfilled();
+    event CustomerCancelled(address customer, uint reward);
+    event ImplementerCancelled(address implementer, uint deposit);
 
     enum State { Prepairing, Implementing, Fulfilled, Failed }
   
@@ -47,16 +49,20 @@ contract LegalAgreement {
         customer = msg.sender;
     }
 
-    function cancel() at(State.Prepairing) {
+    function cancel() at(State.Prepairing) { //TODO: state cancelled
         uint amount;
         if (msg.sender == implementer) {
+            require(deposit > 0);
             amount = deposit;
             deposit = 0;
             msg.sender.transfer(amount);
+            ImplementerCancelled(implementer, amount);
         } else if (msg.sender == customer) {
+            require(reward > 0);
             amount = reward;
             reward = 0;
             msg.sender.transfer(amount);
+            CustomerCancelled(customer, amount);
         } else {
             revert();
         }
@@ -81,6 +87,7 @@ contract LegalAgreement {
 
         if (state == State.Fulfilled) {
             implementer.transfer(this.balance);
+            Fulfilled();
         } else if (state == State.Failed) {
             customer.transfer(this.balance);
         } else {
@@ -89,7 +96,7 @@ contract LegalAgreement {
     }
 
     function isApproved() constant returns (bool) {
-        return approvals.length > (oracles.length / 2);
+        return approvals.length > (oracles.length / 2); //ensure sign
     }
 
     function getState() constant returns (State) {

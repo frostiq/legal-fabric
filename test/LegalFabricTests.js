@@ -6,8 +6,6 @@ contract('LegalFabric', function(accounts) {
   it("should create new contracts", async function() {
     const legalFabric = await LegalFabric.deployed();
 
-    console.log(await legalFabric.instantiator.call())
-
     const now = web3.eth.getBlock(web3.eth.blockNumber).timestamp;
     const newContract = await legalFabric.create(now + 100000, 0, 0, ['0x0', '0x0', '0x0'], '0x0');
     
