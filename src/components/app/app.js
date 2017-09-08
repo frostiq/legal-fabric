@@ -11,6 +11,14 @@ import Form from './../form';
 
 import './app.css'
 
+const promiseInvoke = 
+(func, ...params) => new Promise(
+  (resolve, reject) =>  func(...params, 
+    (err, result) => err ? reject(err) : resolve(result)
+  )
+)
+
+
 class App extends Component {
   constructor(props) {
     super(props)
@@ -47,6 +55,7 @@ class App extends Component {
      * state management library, but for convenience I've placed them here.
      */
 
+    
     const {web3} = this.state;
 
     const contract = require('truffle-contract')
@@ -55,16 +64,13 @@ class App extends Component {
     legalFabricContract.setProvider(this.state.web3.currentProvider)
         
     const legalFabric = await legalFabricContract.deployed() 
-    const now = web3.eth.getBlock(web3.eth.blockNumber).timestamp;
+
+
+    const blockNumber = await promiseInvoke(web3.eth.getBlockNumber)
+    const block = await promiseInvoke(web3.eth.getBlock, blockNumber)
+    const now = block.timestamp;
     
-    const [account] = await new Promise((resolve, reject) => {
-      web3.eth.getAccounts((err, accounts) => {
-          if (err) {
-            return reject(err)
-          }
-          resolve(accounts);
-      });
-    })
+    const [account] = await promiseInvoke(web3.eth.getAccounts)
     
     const newContract = await legalFabric.create(
       now + 100000, 
