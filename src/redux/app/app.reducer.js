@@ -7,6 +7,14 @@ export default (state = initialState, action) => {
         showForm: !state.showForm,
       }
     }
+
+    case 'getAccounts': {
+      return {
+        ...state,
+        accounts: action.payload,
+      }
+    }
+
     default:
       return state;
   }
