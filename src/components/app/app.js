@@ -12,22 +12,12 @@ import Form from './../form';
 import './app.css'
 
 class App extends Component {
-  constructor(props) {
-    super(props)
-
-    this.state = {
-      storageValue: 0,
-      web3: null
-    }
-  }
-
   componentDidMount() {
     this.props.initWeb3()
-    .then(() => this.props.getAccounts())
   }
 
   render() {
-    const {showForm, toggleForm, accounts} = this.props;
+    const {showForm, toggleForm, accounts, contracts} = this.props;
 
     return (
       <div className="App">
@@ -41,7 +31,7 @@ class App extends Component {
             show={showForm} 
             createAgreement={this.props.createAgreement} 
             accounts={accounts}/>
-          <List items={[{_id: 1, name: 'Contract_A'}, {_id: 2, name: 'Contract_B'}]}/>
+          <List items={contracts}/>
         </main>
       </div>
     );
@@ -52,6 +42,7 @@ export default connect(
   state => ({
     showForm: state.app.showForm,
     accounts: state.app.accounts,
+    contracts: state.app.contracts,
   }),
   { toggleForm, initWeb3, createAgreement, getAccounts },
 )(App);

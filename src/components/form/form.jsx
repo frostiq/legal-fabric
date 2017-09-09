@@ -27,11 +27,6 @@ class Form extends Component {
 
   handleOracleChange(i) {
     return (selectedOracle) => {
-      console.log(selectedOracle, i, [
-          ...this.state.oracles.slice(0, i),
-          selectedOracle.value,
-          ...this.state.oracles.slice(i + 1)
-        ])
       this.setState((prevState) => ({
         oracles: [
           ...prevState.oracles.slice(0, i),
@@ -57,11 +52,8 @@ class Form extends Component {
 
   render() {
     const {show, accounts = []} = this.props
-
-    console.log(accounts)
-
     const oracleOptions = accounts.map((account) => ({ value: account, label: account}))
-    console.log(this.state.oracles)
+
     return (
       <form className={`form ${show ? 'form--visible' : ''}`} onSubmit={this.onSubmit}>
         <div className="form__group">

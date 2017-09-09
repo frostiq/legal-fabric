@@ -1,7 +1,15 @@
 import * as web3Api from './../web3.api'
 
-export const initWeb3 = () => (dispatch) => 
- web3Api.init().then(() => dispatch({type: 'initWeb3'}))    
+export const initWeb3 = () => (dispatch) => {
+    web3Api.init().then(({accounts, contractsWatcher}) => {
+        dispatch({type: 'initWeb3', payload: accounts})
+
+        contractsWatcher((contracts) => {
+            dispatch({type: 'contractsUpdated', payload: contracts})
+        })
+    } ) 
+}
+    
 
 export const createAgreement = (params) => (dispatch) => 
  web3Api.createAgreement(params).then(() => dispatch({type: 'agreementCreated'}))
