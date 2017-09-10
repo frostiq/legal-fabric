@@ -25,7 +25,7 @@ contract LegalAgreement {
     event CustomerCancelled(address _customer, uint _reward);
     event ImplementerCancelled(address _implementer, uint _deposit);
 
-    enum State { Prepairing, Implementing, Fulfilled, Failed }
+    enum State { Prepairing, Implementing, Fulfilled, Failed, Cancelled }
   
     function LegalAgreement(
         uint _deadline,
@@ -43,6 +43,8 @@ contract LegalAgreement {
         oracles = _oracles;
         title = _title;
         description = _description;
+
+        approvals.push(Approval(0x0, "")); //dummy first approval
     }
 
     function setImplementer() payable {
@@ -102,7 +104,7 @@ contract LegalAgreement {
     }
 
     function isApproved() constant returns (bool) {
-        return approvals.length > (oracles.length / 2); //ensure sign
+        return (approvals.length - 1) > (oracles.length / 2); //ensure sign
     }
 
     function getState() constant returns (State) {
