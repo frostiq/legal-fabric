@@ -8,8 +8,37 @@ export const initWeb3 = () => (dispatch) => {
             dispatch({type: 'contractsUpdated', payload: contracts})
         })
     } ) 
+}    
+
+export const setAgreementImplementer = (params) => (dispatch) => {
+    web3Api.setAgreementImplementer(params).then(() => {
+        dispatch({ type: 'setAgreementImplementer' })
+    })
 }
-    
+
+export const setAgreementCustomer = (params) => (dispatch) => {
+    web3Api.setAgreementCustomer(params).then(() => {
+        dispatch({ type: 'setAgreementCustomer' })
+    })
+}
+
+export const cancelAgreement = (params) => (dispatch) => {
+    web3Api.cancelAgreement(params).then(() => {
+        dispatch({ type: 'cancelAgreement' })
+    })
+}
+
+export const finalizeAgreement = (params) => (dispatch) => {
+    web3Api.finalizeAgreement(params).then(() => {
+        dispatch({ type: 'finalizeAgreement' })
+    })
+}
+
+export const approveAgreement = (params) => (dispatch) => {
+    web3Api.approveAgreement(params).then(() => {
+        dispatch({ type: 'agreementApproved' })
+    })
+}
 
 export const createAgreement = (params) => (dispatch) => 
  web3Api.createAgreement(params).then(() => dispatch({type: 'agreementCreated'}))

@@ -76,12 +76,12 @@ class Form extends Component {
              className="form__group-input width33M25"
              name="reward"
              type="number" 
-             placeholder="Rewards"/>
+             placeholder="Rewards (ETH)"/>
           <input 
              className="form__group-input width33M25" 
              name="deposit"
              type="number" 
-             placeholder="Security deposit"/>
+             placeholder="Deposit (ETH)"/>
           <DatePicker 
              selected={this.state.deadline}
              dateFormat="YYYY/MM/DD"
