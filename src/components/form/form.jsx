@@ -40,7 +40,7 @@ class Form extends Component {
   onSubmit(event) {
     event.preventDefault();
     const form = event.target
-    console.log(this.state.oracles)
+
     const params = {
       oracles: this.state.oracles,
       reward: form.reward.value,
@@ -48,7 +48,7 @@ class Form extends Component {
       deadline: this.state.deadline.valueOf(),
     }
     
-   // this.props.createAgreement(params);
+    this.props.createAgreement(params);
   }
 
   render() {
