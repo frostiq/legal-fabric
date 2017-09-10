@@ -1,6 +1,6 @@
-# legal-fabric
+# Legal Fabric
 
-Smart contract factory, that helps you create a customized legal agreement between two parties (customer and implementor) for your case.
+Smart contracts factory, that helps you create a customized legal agreement between two parties (customer and implementor) for your case.
 
 ## Workflow:
 1. One of the parties creates the agreement with next parameters:
