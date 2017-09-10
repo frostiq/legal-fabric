@@ -29,8 +29,12 @@ contract Builder is Destructible {
      * @return last address contract
      */
     function getLastContract() constant returns (address) {
-        var sender_contracts = getContractsOf[msg.sender];
-        return sender_contracts[sender_contracts.length - 1];
+        var senderContracts = getContractsOf[msg.sender];
+        return senderContracts[senderContracts.length - 1];
+    }
+
+    function getNumContracts(address client) constant returns (uint) {
+        return getContractsOf[client].length;
     }
 
     /**
