@@ -24,6 +24,8 @@ contract LegalFabric is Builder {
         uint _reward,
         uint _deposit,
         address[3] _oracles,
+        string _title,
+        string _description,
         address _client
         ) payable returns (address) 
     {
@@ -38,7 +40,9 @@ contract LegalFabric is Builder {
             _deadline, 
             _reward, 
             _deposit, 
-            _oracles
+            _oracles,
+            _title,
+            _description
         );
 
         getContractsOf[_client].push(inst);

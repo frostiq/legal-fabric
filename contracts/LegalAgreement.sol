@@ -8,6 +8,8 @@ contract LegalAgreement {
     uint public deposit;
     address public implementer;
     address public customer;
+    string public title;
+    string public description;
 
     struct Approval {
         address oracle;
@@ -20,8 +22,8 @@ contract LegalAgreement {
 
     event Approved(address oracle, string justification);
     event Fulfilled();
-    event CustomerCancelled(address customer, uint reward);
-    event ImplementerCancelled(address implementer, uint deposit);
+    event CustomerCancelled(address _customer, uint _reward);
+    event ImplementerCancelled(address _implementer, uint _deposit);
 
     enum State { Prepairing, Implementing, Fulfilled, Failed }
   
@@ -29,7 +31,9 @@ contract LegalAgreement {
         uint _deadline,
         uint _reward,
         uint _deposit,
-        address[3] _oracles) {
+        address[3] _oracles,
+        string _title,
+        string _description) {
 
         require(_deadline > now);
         
@@ -37,6 +41,8 @@ contract LegalAgreement {
         reward = _reward;
         deposit = _deposit;
         oracles = _oracles;
+        title = _title;
+        description = _description;
     }
 
     function setImplementer() payable {

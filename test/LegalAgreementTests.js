@@ -24,7 +24,7 @@ contract('LegalAgreement', function(accounts) {
 
   let redeploy = async function() {
     deadline = utils.now() + 100000
-    legalAgreement = await LegalAgreement.new(deadline, REWARD, DEPOSIT, ORACLES)
+    legalAgreement = await LegalAgreement.new(deadline, REWARD, DEPOSIT, ORACLES, "", "")
   }
 
   before(function(){
@@ -133,7 +133,7 @@ contract('LegalAgreement', function(accounts) {
     assert.isTrue(res, "legalAgreement.isApproved")
   })
 
-  it("should allow finalize agreement agreement afterdeadline, if approved", async function() {
+  it("should allow positively finalize agreement after deadline, if approved", async function() {
     const state = await legalAgreement.getState()
     assert(state.equals(State.Implementing), "state check")
 
@@ -145,13 +145,36 @@ contract('LegalAgreement', function(accounts) {
 
     assert(balanceAfter.minus(balanceBefore).equals(REWARD + DEPOSIT))
   })
+
+  it("should allow negatively finalize agreement after deadline, if not approved", async function() {
+    await redeploy()
+    await legalAgreement.setCustomer({from : CUSTOMER, value : REWARD})
+    await legalAgreement.setImplementer({from : IMPLEMENTER, value : DEPOSIT})
+
+    const state = await legalAgreement.getState()
+    assert(state.equals(State.Implementing), "state check")
+    
+    await legalAgreement.approve("justification2", {from : ORACLES[1]})
+
+    const res = await legalAgreement.isApproved()
+    assert.isFalse(res, "legalAgreement.isApproved")
+
+    await utils.increaseTime(deadline - utils.now() + 10)
+    
+    const balanceBefore = await web3.eth.getBalance(CUSTOMER)
+    await legalAgreement.finalize()
+    const balanceAfter = await web3.eth.getBalance(CUSTOMER)
+
+    assert(balanceAfter.minus(balanceBefore).equals(REWARD + DEPOSIT))
+
+  })
   
 
-  // reward & deposit
-  // set customer & implementer 2nd time
-  // cancel deposit & reward
-  // cancel deposit & reward 2nd time
-  // approve not by oracle
-  // finalize failed
-  // finalize fulfilled
+  // x reward & deposit
+  // x set customer & implementer 2nd time
+  // x cancel deposit & reward
+  // x cancel deposit & reward 2nd time
+  // x approve not by oracle
+  // x finalize failed
+  // x finalize fulfilled
 })
