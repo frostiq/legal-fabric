@@ -17,8 +17,26 @@
 .list-item__title-block {
   display: flex;
   justify-content: space-between;
-  align-items: center;
   height: 60px;
+}
+
+.list-item__cross-icon {
+  color: red;
+  margin-left: 15px; 
+}
+
+.list-item__desc-item {
+  margin-bottom: 10px;
+}
+
+.list-item__buttons {
+  display: flex;
+  align-items: center;
+}
+
+.list-item__header-block {
+  display: flex;
+  align-items: center;
 }
 
 .list-item__name {
@@ -26,11 +44,11 @@
   margin-right: 8px;
 }
 
-.list-item__buttons {
+.list-item__buttons-icons {
   display: flex;
 }
 
-.list-item__buttons button{
+.list-item__buttons-icons button{
   margin: 0 8px 0 3px;
 }
 

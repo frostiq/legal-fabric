@@ -1,6 +1,8 @@
 import React, { Component } from 'react'
 import Button from './../button'
 
+import FontAwesome from 'react-fontawesome'
+
 import './list-item.css'
 
 class ListItem extends Component {
@@ -12,6 +14,11 @@ class ListItem extends Component {
     }
 
     this.handleClick = ::this.handleClick
+    this.handleApprove = ::this.handleApprove
+    this.handleApproveCustomer = ::this.handleApproveCustomer
+    this.handleApproveImplementer = ::this.handleApproveImplementer
+    this.handleCancelAgreement = ::this.handleCancelAgreement
+    this.handleFinalizeAgreement = ::this.handleFinalizeAgreement
   }
 
   handleClick () {
@@ -20,29 +27,88 @@ class ListItem extends Component {
     }))
   }
 
+  handleApprove () {
+    this.props.approveAgreement({
+      agreementAddress: this.props.item.address,
+    })
+  }
+
+  handleApproveCustomer () {
+    this.props.setAgreementCustomer({
+      agreementAddress: this.props.item.address,
+    })
+  }
+
+  handleApproveImplementer () {
+    this.props.setAgreementImplementer({
+      agreementAddress: this.props.item.address,
+    })
+  }
+
+  handleCancelAgreement () {
+    this.props.cancelAgreement({
+      agreementAddress: this.props.item.address,
+    })
+  }
+
+  handleFinalizeAgreement () {
+    this.props.finalizeAgreement({
+      agreementAddress: this.props.item.address,
+    })
+  }
+
   render() {
-    const {item, account} = this.props;
+    const {
+      item, 
+      account,
+      oracles, 
+      isOracles,     
+      setAgreementImplementer,
+      setAgreementCustomer,
+      cancelAgreement,
+      finalizeAgreement,
+      approveAgreement} = this.props;
+
+    const oraclesNames  =  item.oracles
+            .map((oracle) => {
+             const o = oracles.find(({address}) => address === oracle)
+             return o ? o.name : oracle;
+            })  
+
     const {showDetails} = this.state;
-    const isOracle = item.oracles.findIndex((address) => address === account) !== -1
+
+    const EMPTY_ADDRESS = '0x0000000000000000000000000000000000000000';   
 
     return (
      <div className={`${showDetails? 'list-item list-item--click' : 'list-item'}`}>
        <div className="list-item__title-block">
-        <div>
+        <div className="list-item__header-block">
           <span className="list-item__name">{item.name}</span>
           <span className={`${showDetails? 'list-item__down-arrow list-item__down-arrow-up' : 'list-item__down-arrow'}`} onClick={this.handleClick}></span>
         </div>
-        <div className="list-item__buttons">
-         { isOracle ? <Button name="Accept" success/> : null }
+        <div className="list-item__buttons-icons">
+        <div className="list-item__buttons"> 
+          { isOracles ? <Button name="Approve" onClick={this.handleApprove} success/> : null }
+        </div>
+        <div className="list-item__icons">
+            <FontAwesome style={{marginTop: '2px', cursor: 'pointer', marginRight: '5px'}} name="refresh" onClick={this.handleFinalizeAgreement}/>
+            <FontAwesome style={{color: 'red', cursor: 'pointer', marginLeft: '10px', marginRight: '5px'}} name="times" onClick={this.handleCancelAgreement}/>
+         </div>
         </div> 
        </div>
        {
          showDetails 
           ? <div className="list-item__details-block">
-            <span className="list-item__name">Implementer: {item.implementer}</span>
-            <span className="list-item__name">Customer: {item.customer}</span>
-            <span className="list-item__name">Reward: {item.reward}</span>
-            <span className="list-item__name">Deposit: {item.deposit}</span>
+            <span className="list-item__name list-item__desc-item"><strong>Implementer</strong>: {item.implementer === EMPTY_ADDRESS 
+              ? <Button name="Approve" onClick={this.handleApproveImplementer} primary/> 
+              : item.implementer}</span>
+            <span className="list-item__name list-item__desc-item"><strong>Customer:</strong> {item.customer === EMPTY_ADDRESS 
+              ? <Button name="Approve" onClick={this.handleApproveCustomer} primary/> 
+              : item.customer}</span>
+            <span className="list-item__name list-item__desc-item"><strong>Reward:</strong>{item.reward}</span>
+            <span className="list-item__name list-item__desc-item"><strong>Deposit:</strong>{item.deposit}</span>
+            <span className="list-item__name list-item__desc-item"><strong>Deadline:</strong>{item.deadline}</span>
+            <span className="list-item__name list-item__desc-item"><strong>Oracles:</strong>{''  +  oraclesNames}</span>
           </div>   
           : null
        }     
