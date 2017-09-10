@@ -24,7 +24,7 @@ contract('LegalAgreement', function(accounts) {
 
   let redeploy = async function() {
     deadline = utils.now() + 100000
-    legalAgreement = await LegalAgreement.new(deadline, REWARD, DEPOSIT, ORACLES)
+    legalAgreement = await LegalAgreement.new(deadline, REWARD, DEPOSIT, ORACLES, "", "")
   }
 
   before(function(){

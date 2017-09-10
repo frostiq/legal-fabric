@@ -24,7 +24,9 @@ contract LegalFabric is Builder {
         uint _reward,
         uint _deposit,
         address[3] _oracles,
-        address _client
+        address _client,
+        string _title,
+        string _description
         ) payable returns (address) 
     {
         require(msg.value == buildingCostWei);
@@ -38,7 +40,9 @@ contract LegalFabric is Builder {
             _deadline, 
             _reward, 
             _deposit, 
-            _oracles
+            _oracles,
+            _title,
+            _description
         );
 
         getContractsOf[_client].push(inst);

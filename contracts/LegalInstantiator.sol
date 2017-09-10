@@ -11,24 +11,29 @@ contract LegalInstantiator is Destructible {
 
     address public builder;
 
+
+    function setBuilder(address _builder) onlyOwner {
+        builder = _builder;
+    }
+
     function create(
         uint _deadline,
         uint _reward,
         uint _deposit,
-        address[3] _oracles
+        address[3] _oracles,
+        string _title,
+        string _description
         ) returns (address) 
     {
-        //require(msg.sender == builder);
+        require(msg.sender == builder);
 
         return new LegalAgreement(
             _deadline, 
             _reward, 
             _deposit, 
-            _oracles
+            _oracles,
+            _title,
+            _description
         );
-    }
-
-    function setBuilder(address _builder) onlyOwner {
-        builder = _builder;
     }
 }
