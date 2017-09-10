@@ -1,6 +1,8 @@
 import React, { Component } from 'react'
 import Button from './../button'
 
+import moment from 'moment'
+
 import FontAwesome from 'react-fontawesome'
 
 import './list-item.css'
@@ -78,6 +80,7 @@ class ListItem extends Component {
     const {showDetails} = this.state;
 
     const EMPTY_ADDRESS = '0x0000000000000000000000000000000000000000';   
+    const STATE = ['Prepairing', 'Implementing', 'Fulfilled', 'Failed', 'Canceled']
 
     return (
      <div className={`${showDetails? 'list-item list-item--click' : 'list-item'}`}>
@@ -99,16 +102,17 @@ class ListItem extends Component {
        {
          showDetails 
           ? <div className="list-item__details-block">
-            <span className="list-item__name list-item__desc-item"><strong>Implementer</strong>: {item.implementer === EMPTY_ADDRESS && !isOracles 
+            <span className="list-item__name list-item__desc-item"><strong>Implementer</strong>{item.implementer === EMPTY_ADDRESS && !isOracles 
               ? <Button name="Approve" onClick={this.handleApproveImplementer} primary/> 
               : item.implementer}</span>
-            <span className="list-item__name list-item__desc-item"><strong>Customer:</strong> {item.customer === EMPTY_ADDRESS && !isOracles
+            <span className="list-item__name list-item__desc-item"><strong>Customer</strong> {item.customer === EMPTY_ADDRESS && !isOracles
               ? <Button name="Approve" onClick={this.handleApproveCustomer} primary/> 
               : item.customer}</span>
-            <span className="list-item__name list-item__desc-item"><strong>Reward:</strong>{item.reward +  ' (ETH)'}</span>
-            <span className="list-item__name list-item__desc-item"><strong>Deposit:</strong>{item.deposit +  ' (ETH)'}</span>
-            <span className="list-item__name list-item__desc-item"><strong>Deadline:</strong>{item.deadline}</span>
-            <span className="list-item__name list-item__desc-item"><strong>Oracles:</strong>{''  +  oraclesNames}</span>
+            <span className="list-item__name list-item__desc-item"><strong>State</strong>{STATE[item.state]}</span>
+            <span className="list-item__name list-item__desc-item"><strong>Reward</strong>{item.reward +  ' (ETH)'}</span>
+            <span className="list-item__name list-item__desc-item"><strong>Deposit</strong>{item.deposit +  ' (ETH)'}</span>
+            <span className="list-item__name list-item__desc-item"><strong>Deadline</strong>{moment(item.deadline, 'x').format('YYYY/MM/DD')}</span>
+            <span className="list-item__name list-item__desc-item"><strong>Oracles</strong>{''  +  oraclesNames}</span>
           </div>   
           : null
        }     

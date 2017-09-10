@@ -26,7 +26,13 @@
 }
 
 .list-item__desc-item {
+  display: flex;
+  justify-content: space-between;
   margin-bottom: 10px;
+}
+
+.list-item__desc-item strong{
+  margin-right: 15px
 }
 
 .list-item__buttons {
