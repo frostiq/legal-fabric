@@ -110,6 +110,7 @@ export const createAgreement = async (params) => {
 }
 
 export const approveAgreement = async ({item}) => {
+  console.log(item);
   const agreement = await legalAgreementContract.at(item.address)
   await agreement.approve('Great job!');
 

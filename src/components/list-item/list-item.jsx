@@ -29,7 +29,7 @@ class ListItem extends Component {
 
   handleApprove () {
     this.props.approveAgreement({
-      item: this.props.item.address,
+      item: this.props.item,
     })
   }
 
@@ -99,7 +99,7 @@ class ListItem extends Component {
        {
          showDetails 
           ? <div className="list-item__details-block">
-            <span className="list-item__name list-item__desc-item"><strong>Implementer</strong>: {item.implementer === EMPTY_ADDRESS && !isOracles
+            <span className="list-item__name list-item__desc-item"><strong>Implementer</strong>: {item.implementer === EMPTY_ADDRESS && !isOracles 
               ? <Button name="Approve" onClick={this.handleApproveImplementer} primary/> 
               : item.implementer}</span>
             <span className="list-item__name list-item__desc-item"><strong>Customer:</strong> {item.customer === EMPTY_ADDRESS && !isOracles
