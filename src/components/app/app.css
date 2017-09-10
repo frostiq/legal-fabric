@@ -37,6 +37,7 @@ code {
 /* NAVBAR */
 
 .navbar {
+  z-index: 1000;
   position: fixed;
   padding: 5px;
   background: #0c1a2b;

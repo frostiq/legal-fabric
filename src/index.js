@@ -9,6 +9,7 @@ import './css/oswald.css'
 import './css/open-sans.css'
 import './css/pure-min.css'
 import 'react-datepicker/dist/react-datepicker.css'
+import 'react-select/dist/react-select.css'
 
 ReactDOM.render(
   <Provider store={store}>

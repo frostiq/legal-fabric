@@ -4,7 +4,7 @@ import './button.css'
 
 class Button extends Component {
   render() {
-    const {name, success, primary, danger, warning} = this.props;
+    const {name, success, primary, danger, warning, onClick, type = 'button'} = this.props;
     const btnClass = cx({
       button: true,
       'button--success': success,
@@ -14,7 +14,7 @@ class Button extends Component {
     });
 
     return (
-        <button className={btnClass}>{name}</button>
+        <button className={btnClass} onClick={onClick} type={type}>{name}</button>
     );
   }
 }

@@ -9,7 +9,6 @@ chai.should();
 const assert = chai.assert;
 
 contract('LegalAgreement', function(accounts) {
-
   const CUSTOMER = accounts[1]
   const IMPLEMENTER = accounts[2]
   const REWARD = 100
