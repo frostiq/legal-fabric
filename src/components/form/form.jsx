@@ -40,6 +40,7 @@ class Form extends Component {
   onSubmit(event) {
     event.preventDefault();
     const form = event.target
+    console.log(this.state.oracles)
     const params = {
       oracles: this.state.oracles,
       reward: form.reward.value,
@@ -47,12 +48,12 @@ class Form extends Component {
       deadline: this.state.deadline.valueOf(),
     }
     
-    this.props.createAgreement(params);
+   // this.props.createAgreement(params);
   }
 
   render() {
-    const {show, accounts = []} = this.props
-    const oracleOptions = accounts.map((account) => ({ value: account, label: account}))
+    const {show, oracles = []} = this.props
+    const oracleOptions = oracles.map(({name, address}) => ({ value: address, label: name}))
 
     return (
       <form className={`form ${show ? 'form--visible' : ''}`} onSubmit={this.onSubmit}>

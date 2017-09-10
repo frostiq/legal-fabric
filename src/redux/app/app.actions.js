@@ -1,8 +1,8 @@
 import * as web3Api from './../web3.api'
 
 export const initWeb3 = () => (dispatch) => {
-    web3Api.init().then(({accounts, contractsWatcher}) => {
-        dispatch({type: 'initWeb3', payload: accounts})
+    web3Api.init().then(({account, contractsWatcher}) => {
+        dispatch({type: 'initWeb3', payload: account})
 
         contractsWatcher((contracts) => {
             dispatch({type: 'contractsUpdated', payload: contracts})

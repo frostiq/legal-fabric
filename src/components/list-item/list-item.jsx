@@ -21,8 +21,9 @@ class ListItem extends Component {
   }
 
   render() {
-    const {item} = this.props;
+    const {item, account} = this.props;
     const {showDetails} = this.state;
+    const isOracle = item.oracles.findIndex((address) => address === account) !== -1
 
     return (
      <div className={`${showDetails? 'list-item list-item--click' : 'list-item'}`}>
@@ -32,12 +33,14 @@ class ListItem extends Component {
           <span className={`${showDetails? 'list-item__down-arrow list-item__down-arrow-up' : 'list-item__down-arrow'}`} onClick={this.handleClick}></span>
         </div>
         <div className="list-item__buttons">
-          <Button name="Accept" success/>
+         { isOracle ? <Button name="Accept" success/> : null }
         </div> 
        </div>
        {
          showDetails 
           ? <div className="list-item__details-block">
+            <span className="list-item__name">Implementer: {item.implementer}</span>
+            <span className="list-item__name">Customer: {item.customer}</span>
             <span className="list-item__name">Reward: {item.reward}</span>
             <span className="list-item__name">Deposit: {item.deposit}</span>
           </div>   

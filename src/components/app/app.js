@@ -17,7 +17,7 @@ class App extends Component {
   }
 
   render() {
-    const {showForm, toggleForm, accounts, contracts} = this.props;
+    const {showForm, toggleForm, account, contracts, oracles} = this.props;
 
     return (
       <div className="App">
@@ -30,8 +30,8 @@ class App extends Component {
           <Form 
             show={showForm} 
             createAgreement={this.props.createAgreement} 
-            accounts={accounts}/>
-          <List items={contracts}/>
+            oracles={oracles}/>
+          <List items={contracts} account={account}/>
         </main>
       </div>
     );
@@ -41,7 +41,8 @@ class App extends Component {
 export default connect(
   state => ({
     showForm: state.app.showForm,
-    accounts: state.app.accounts,
+    account: state.app.account,
+    oracles: state.app.oracles,
     contracts: state.app.contracts,
   }),
   { toggleForm, initWeb3, createAgreement, getAccounts },
