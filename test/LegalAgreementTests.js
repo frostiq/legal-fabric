@@ -20,10 +20,14 @@ contract('LegalAgreement', function(accounts) {
   let legalAgreement
   let deadline
 
-  before(async function(){
+  let redeploy = async function() {
     const now = web3.eth.getBlock(web3.eth.blockNumber).timestamp;
     deadline = now + 100000
     legalAgreement = await LegalAgreement.new(deadline, REWARD, DEPOSIT, ORACLES)
+  }
+
+  before(function(){
+    return redeploy()
   })
 
   it("should set deadline correctly", async function() {
@@ -66,12 +70,17 @@ contract('LegalAgreement', function(accounts) {
   })
 
   it("should allow cancel reward", async function() {
+    await redeploy()
+
     const state = await legalAgreement.getState()
     assert(state.equals(State.Prepairing))
 
+    const balanceBefore = await web3.eth.getBalance(CUSTOMER)
     await legalAgreement.cancel({from : CUSTOMER})
-    const res = await legalAgreement.customer()
-    assert.equal(res, CUSTOMER)
+    const balanceAfter = await web3.eth.getBalance(CUSTOMER)
+    console.log(balanceBefore)
+    console.log(balanceAfter)
+    assert(balanceAfter.minus(balanceBefore).equals(REWARD))
   })
 
   
