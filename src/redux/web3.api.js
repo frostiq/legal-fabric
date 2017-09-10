@@ -56,8 +56,8 @@ export const init = () =>
             name: res.args.instance,
             address: res.args.instance,
             deadline: +('' + deadline),
-            reward: '' + web3.fromWei(reward) + ' (ETH)',
-            deposit: '' + web3.fromWei(deposit) + ' (ETH)',
+            reward: '' + web3.fromWei(reward),
+            deposit: '' + web3.fromWei(deposit),
             implementer,
             customer,
             oracles,
@@ -109,41 +109,41 @@ export const createAgreement = async (params) => {
       console.log('Agreement state: ' + state)
 }
 
-export const approveAgreement = async ({agreementAddress}) => {
-  const agreement = await legalAgreementContract.at(agreementAddress)
+export const approveAgreement = async ({item}) => {
+  const agreement = await legalAgreementContract.at(item.address)
   await agreement.approve('Great job!');
 
   const state = await agreement.getState.call()
   console.log('Agreement state: ' + state)
 }
 
-export const setAgreementImplementer = async ({agreementAddress}) => {
-  const agreement = await legalAgreementContract.at(agreementAddress)
+export const setAgreementImplementer = async ({item}) => {
+  const agreement = await legalAgreementContract.at(item.address)
   const [account] = await promiseInvoke(web3.eth.getAccounts)
-  await agreement.setImplementer({from: account, gas: 4000000 });
+  await agreement.setImplementer({from: account, gas: 4000000, value: web3.toWei(item.deposit) });
 
   console.log('setAgreementImplementer completed')
   const state = await agreement.getState.call()
   console.log('Agreement state: ' + state)
 }
 
-export const setAgreementCustomer = async ({agreementAddress}) => {
-  console.log(agreementAddress)
-  const agreement = await legalAgreementContract.at(agreementAddress)
+export const setAgreementCustomer = async ({item}) => {
+  console.log(item.address)
+  const agreement = await legalAgreementContract.at(item.address)
   const [account] = await promiseInvoke(web3.eth.getAccounts)
-  await agreement.setCustomer({from: account, gas: 4000000 })
+  await agreement.setCustomer({from: account, gas: 4000000, value: web3.toWei(item.reward) })
 
   console.log('setCustomer completed')
 }
 
-export const cancelAgreement = async ({agreementAddress}) => {
-  const agreement = await legalAgreementContract.at(agreementAddress)
+export const cancelAgreement = async ({item}) => {
+  const agreement = await legalAgreementContract.at(item.address)
   const [account] = await promiseInvoke(web3.eth.getAccounts)
   await agreement.cancel({from: account, gas: 4000000 })
 }
 
-export const finalizeAgreement = async ({agreementAddress}) => {
-  const agreement = await legalAgreementContract.at(agreementAddress)
+export const finalizeAgreement = async ({item}) => {
+  const agreement = await legalAgreementContract.at(item.address)
   const [account] = await promiseInvoke(web3.eth.getAccounts)
   await agreement.finalize({from: account, gas: 4000000 })
 

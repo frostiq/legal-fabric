@@ -29,31 +29,31 @@ class ListItem extends Component {
 
   handleApprove () {
     this.props.approveAgreement({
-      agreementAddress: this.props.item.address,
+      item: this.props.item.address,
     })
   }
 
   handleApproveCustomer () {
     this.props.setAgreementCustomer({
-      agreementAddress: this.props.item.address,
+      item: this.props.item,
     })
   }
 
   handleApproveImplementer () {
     this.props.setAgreementImplementer({
-      agreementAddress: this.props.item.address,
+      item: this.props.item,
     })
   }
 
   handleCancelAgreement () {
     this.props.cancelAgreement({
-      agreementAddress: this.props.item.address,
+      item: this.props.item,
     })
   }
 
   handleFinalizeAgreement () {
     this.props.finalizeAgreement({
-      agreementAddress: this.props.item.address,
+      item: this.props.item,
     })
   }
 
@@ -105,8 +105,8 @@ class ListItem extends Component {
             <span className="list-item__name list-item__desc-item"><strong>Customer:</strong> {item.customer === EMPTY_ADDRESS 
               ? <Button name="Approve" onClick={this.handleApproveCustomer} primary/> 
               : item.customer}</span>
-            <span className="list-item__name list-item__desc-item"><strong>Reward:</strong>{item.reward}</span>
-            <span className="list-item__name list-item__desc-item"><strong>Deposit:</strong>{item.deposit}</span>
+            <span className="list-item__name list-item__desc-item"><strong>Reward:</strong>{item.reward +  ' (ETH)'}</span>
+            <span className="list-item__name list-item__desc-item"><strong>Deposit:</strong>{item.deposit +  ' (ETH)'}</span>
             <span className="list-item__name list-item__desc-item"><strong>Deadline:</strong>{item.deadline}</span>
             <span className="list-item__name list-item__desc-item"><strong>Oracles:</strong>{''  +  oraclesNames}</span>
           </div>   
