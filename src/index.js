@@ -2,6 +2,7 @@ import React from 'react'
 import ReactDOM from 'react-dom'
 import App from './components/app'
 import {Provider} from 'react-redux'
+import { BrowserRouter } from 'react-router-dom';
 
 import store from './redux/store'
 
@@ -13,7 +14,9 @@ import 'react-select/dist/react-select.css'
 
 ReactDOM.render(
   <Provider store={store}>
-    <App />
+    <BrowserRouter>
+      <App />
+    </BrowserRouter>
   </Provider>,
   document.getElementById('root')
 );
