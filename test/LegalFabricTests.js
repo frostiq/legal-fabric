@@ -7,9 +7,23 @@ contract('LegalFabric', function(accounts) {
   
   it("should create new contracts", async function() {
     const legalFabric = await LegalFabric.deployed();
+    
     const deadline = utils.now() + 1000000
-    console.log('deadline: ' + new Date(deadline))
-    const newContract = await legalFabric.create(deadline, 0, 0, ['0x0', '0x0', '0x0'], '0x0', '', '');
+    const reward = 0
+    const deposit = 0
+    const oracles = ['0x0', '0x0', '0x0']
+    const title = 'title'
+    const description = 'description'
+    const clientAddress = '0x0'
+
+    const newContract = await legalFabric.create(
+      deadline, 
+      reward, 
+      deposit, 
+      oracles, 
+      title, 
+      description,
+      clientAddress);
     
     const instance = newContract.logs[0].args.instance;
     console.log('instance: ' + instance)

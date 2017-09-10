@@ -24,9 +24,9 @@ contract LegalFabric is Builder {
         uint _reward,
         uint _deposit,
         address[3] _oracles,
-        address _client,
         string _title,
-        string _description
+        string _description,
+        address _client
         ) payable returns (address) 
     {
         require(msg.value == buildingCostWei);
